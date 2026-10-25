@@ -361,6 +361,24 @@ TEST_F(SolverUTest, UniSphGrid)
   }
 }
 
+TEST_F(SolverUTest, ApplyMMat)
+{
+  using namespace pbsolvers;
+  // Column-major A (2x3) and X (3x2)
+  const double A[6] = {1, 4, 2, 5, 3, 6};
+  const double X[6] = {7, 9, 11, 8, 10, 12};
+  const double expected[4] = {58, 139, 64, 154};
+
+  double Y[4];
+  for (int i = 0; i < 4; i++) Y[i] = std::numeric_limits<double>::quiet_NaN();
+  applyMMat(A, X, Y, 1.0, 0.0, 2, 2, 3);
+  for (int i = 0; i < 4; i++) EXPECT_NEAR(Y[i], expected[i], preclim);
+
+  double Z[4] = {1, 1, 1, 1};
+  applyMMat(A, X, Z, 2.0, 1.0, 2, 2, 3);
+  for (int i = 0; i < 4; i++) EXPECT_NEAR(Z[i], 2.0*expected[i] + 1.0, preclim);
+}
+
 TEST_F(SolverUTest, IMATTestIntermediates)
 {
   using namespace pbsolvers;

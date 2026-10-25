@@ -45,6 +45,22 @@ void applyMMat(const double * A, const double * X, double * Y,
   cblas_dgemm(Order, TransA, TransB, M, N, K, alpha, A, lda,
               X,  ldb, beta, Y, ldc);
 #endif
+
+#if !defined(__ACML) && !defined(__MKL) && !defined(__MACOS) && !defined(__XCODE)
+  // Portable column-major fallback for BLAS vendors without a branch above.
+  // Y is not read when beta is zero because callers may pass uninitialized
+  // output buffers.
+  for (int j = 0; j < N; j++)
+  {
+    for (int i = 0; i < M; i++)
+    {
+      double sum = 0.0;
+      for (int k = 0; k < K; k++)
+        sum += A[i + k*lda] * X[k + j*ldb];
+      Y[i + j*ldc] = (beta == 0.0) ? alpha*sum : alpha*sum + beta*Y[i + j*ldc];
+    }
+  }
+#endif
   
   return;
 }
