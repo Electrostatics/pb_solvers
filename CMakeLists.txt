@@ -92,10 +92,10 @@ endif()
 ################################################
 if(ENABLE_PB_TESTING)
   find_package(Threads REQUIRED)
-  # google test commit e2239ee = v1.11.0
+  # google test commit 58d77fa = v1.12.1 (last release supporting C++11)
   FetchContent_Declare(
     googletest
-    URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
+    URL https://github.com/google/googletest/archive/58d77fa8070e8cec2dc1ed015d66b454c8d78850.zip
   )
   # For Windows: Prevent overriding the parent project's compiler/linker settings
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
