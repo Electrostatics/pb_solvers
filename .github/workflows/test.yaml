@@ -96,8 +96,14 @@ jobs:
       - name: Run tests
         run: |
           cd build/bin
-          if [ -f pbamtest ]; then ./pbamtest; fi
-          if [ -f pbsamtest ]; then ./pbsamtest; fi
+          for t in pbamtest pbsamtest; do
+            exe=""
+            for c in "$t" "Release/$t.exe"; do
+              if [ -f "$c" ]; then exe="$c"; fi
+            done
+            if [ -z "$exe" ]; then echo "::error::$t was not built"; exit 1; fi
+            "./$exe"
+          done
         shell: bash
 
       #- name: Setup tmate session
