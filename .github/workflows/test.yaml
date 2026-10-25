@@ -14,6 +14,9 @@ env:
   ENABLE_PBAM_SPHINX: "OFF"
   ENABLE_PB_TESTING: "ON"
 
+permissions:
+  contents: read
+
 jobs:
   build:
 
