@@ -153,7 +153,7 @@ SystemAM::SystemAM(vector<shared_ptr<BaseMolecule> > mols, double cutoff,
     typeIdxToIdx_[keys] = k;
     maxi = ( maxi > i ) ? maxi : i;
     
-    if ( i >= maxj.size() ) maxj.push_back(0);
+    if ( i >= (int) maxj.size() ) maxj.resize(i + 1, -1);
     maxj[i] = ( maxj[i] > j ) ? maxj[i] : j;
   }
   
