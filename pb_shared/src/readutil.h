@@ -438,7 +438,7 @@ public:
   IMatFile(string path, int p)
   :path_(path), p_(p)
   {
-    mat_.resize(p*p*p*p);
+    mat_.resize((size_t)p*p*p*p);
     read_binary();
   }
   
@@ -520,7 +520,7 @@ public:
   HFFile(string path, int p)
   :path_(path), p_(p), mat_(p, 2*p+1)
   {
-    vec_.reserve(p*p);
+    vec_.reserve((size_t)p*p);
     read();
     convert_to_mat();
   }

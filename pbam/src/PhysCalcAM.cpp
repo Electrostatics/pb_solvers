@@ -256,8 +256,8 @@ outfname_(outfname)
   force_approx_ = make_shared<vector<Pt> >(N_);
   torque_approx_ = make_shared<vector<Pt> >(N_);
   
-  dimer_.reserve(N_*N_);
-  trimer_.reserve(N_*N_*N_);
+  dimer_.reserve((size_t)N_*N_);
+  trimer_.reserve((size_t)N_*N_*N_);
   
   compute_units(unt);
   generatePairsTrips();
