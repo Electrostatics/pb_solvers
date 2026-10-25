@@ -26,7 +26,7 @@ _besselCalc_(_besselcalc), _shCalc_(_shcalc)
     total_spheres += _sys->get_Ns_i(I);
     Nsi_[I] = _sys->get_Ns_i(I);
   }
-  T_.reserve(total_spheres*total_spheres);
+  T_.reserve((size_t)total_spheres*total_spheres);
   
   update_vals(_sys, _shcalc, _besselcalc, _reexpconsts);
 }
